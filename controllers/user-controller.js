@@ -1,6 +1,6 @@
 const { User, Thought } = require('../models');
 
-module.exports - {
+module.exports = {
     //create a new USER 
     createUser(req, res) {
         User.create(req.body)
