@@ -1,5 +1,6 @@
 //require express and mongoose 
 const express = require('express');
+const db = require('./config/connection');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -18,4 +19,9 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network'
     useUnifiedTopology: true
 });
 
-app.listen(PORT, () => console.log(` ************** Connected on localhost:${PORT} ************* `));
+
+db.once('open', () => {
+    app.listen(PORT, () => {
+        console.log(`************** Connected on localhost:${PORT} ************* `);
+    });
+})
