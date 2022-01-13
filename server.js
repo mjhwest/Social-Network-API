@@ -11,6 +11,7 @@ app.use(express.static('public'));
 
 app.use(require('./routes'));
 
+//connection to mongoose, if connection not established run it local host
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network', {
     useFindAndModify: false,
     useNewUrlParser: true,
