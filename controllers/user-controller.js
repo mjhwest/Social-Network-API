@@ -3,7 +3,7 @@ const { User, Thought } = require('../models');
 module.exports = {
     //get all USER
     getAllUsers(req, res) {
-        Course.find()
+        User.find()
             .then((courses) => res.json(courses))
             .catch((err) => res.status(500).json(err));
     },
@@ -14,5 +14,4 @@ module.exports = {
             .then((user) => res.json(user))
             .catch((err) => res.status(500).json(err));
     },
-
 }
