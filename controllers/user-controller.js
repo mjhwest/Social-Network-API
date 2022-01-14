@@ -52,7 +52,6 @@ module.exports = {
     },
 
     //add a new friend by users id
-
     // //  IN INSOMNIA .../api/users/:userId/friends/:friendId
 
     addNewFriend(req, res) {
@@ -65,6 +64,19 @@ module.exports = {
                 .status(404)
                 .json({ message: 'No user found with that ID' }) :
                 res.json({ message: "You have added a new friend" })
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    //delete a friend from a users friend list
+    removeFriend(req, res) {
+        console.log('You are removing a friend');
+        console.log(req.body);
+        User.findOneAndUpdate({ _id: req.params.id }, { $pull: { friends: req.params.friendId } }, { runValidators: true, new: true })
+            .then((user) =>
+                !user ?
+                res.status(404).json({ message: 'No friend found with that id' }) :
+                res.json({ message: "You have removed a friend" })
             )
             .catch((err) => res.status(500).json(err));
     }
