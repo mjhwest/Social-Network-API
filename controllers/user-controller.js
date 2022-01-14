@@ -58,7 +58,7 @@ module.exports = {
     addNewFriend(req, res) {
         console.log('You are adding a friend');
         console.log(req.body);
-        User.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { friends: req.body } }, { runValidators: true, new: true })
+        User.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { friends: req.params.friendId } }, { runValidators: true, new: true })
             .then((user) =>
                 !user ?
                 res
