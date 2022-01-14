@@ -22,7 +22,7 @@ router.route('/:id').get(getUserById).put(updateUser).delete(deleteUser);
 
 
 //api/users/:userId/friends/:friendId -----POST /NEW FRIEND TO USERS FRIEND LIST and REMOVE A FRIEND 
-router.route('/:id/friends/:friendsId').post(addNewFriend)
+router.route('/:id/friend/:friendId').post(addNewFriend)
 
 
 // .delete(removeFriend);
