@@ -33,12 +33,40 @@ module.exports = {
             .then((user) =>
                 !course ?
                 res.status(404).json({ message: 'No course with this id!' }) :
-                res.json(user)
+                res.json({ message: "User information has been updated" })
+                // :res.json(user)
             )
             .catch((err) => res.status(500).json(err));
     },
 
-    //test
+    //delete a user by its id
+    deleteUser(req, res) {
+        User.findOneAndRemove({ _id: req.params.id })
+            .then((user) =>
+                !user ?
+                res.status(404).json({ message: "No user with that Id" }) :
+                res.json({ message: "User has been deleted" })
+                // :res.json(user)
+            )
+            .catch((err) => res.status(500).json(err))
+    },
 
+    //add a new friend by users id
+
+    // //  IN INSOMNIA .../api/users/:userId/friends/:friendId
+
+    addNewFriend(req, res) {
+        console.log('You are adding a friend');
+        console.log(req.body);
+        User.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { friends: req.body } }, { runValidators: true, new: true })
+            .then((user) =>
+                !user ?
+                res
+                .status(404)
+                .json({ message: 'No user found with that ID' }) :
+                res.json({ message: "You have added a new friend" })
+            )
+            .catch((err) => res.status(500).json(err));
+    }
 
 }
