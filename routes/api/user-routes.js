@@ -7,7 +7,7 @@ const {
     getAllUsers,
     getUserById,
     //PUT
-    updateUserById,
+    updateUser,
     //DELETE
     deleteUserById,
     removeFriend
@@ -17,10 +17,10 @@ const {
 router.route('/').get(getAllUsers).post(createUser);
 
 //api/users/:id -------GET USER BY ID, UPDATE USER BY ID and DELETE USER BY ID 
-router.route('/:id').get(getUserById)
+router.route('/:id').get(getUserById).put(updateUser)
 
 
-// .put(updateUserById).delete(deleteUserById);
+// .delete(deleteUserById);
 
 //api/users/:userId/friends/:friendId -----POST /NEW FRIEND TO USERS FRIEND LIST and REMOVE A FRIEND 
 // router.route('/:id/friends/:friendsId').post(addNewFriend).delete(removeFriend);
