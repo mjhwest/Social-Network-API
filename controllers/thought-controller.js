@@ -90,8 +90,9 @@ module.exports = {
     // POST to create a reaction stored in a single thought's reactions array field
     createReaction(req, res) {
         console.log('You are creating a reaction');
-        console.log(req.body);
-        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $addToSet: { thoughts: req.params.reactionId } }, { runValidators: true, new: true })
+        console.log(req.body, req.params.thoughtId);
+
+        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { runValidators: true, new: true })
             .then((thought) =>
                 !thought ?
                 res
@@ -100,6 +101,7 @@ module.exports = {
                 res.json({ message: "You have added a new thought" })
             )
             .catch((err) => res.status(500).json(err));
+
     }
 
 
