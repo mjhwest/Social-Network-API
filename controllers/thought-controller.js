@@ -1,4 +1,3 @@
-const { resetWatchers } = require('nodemon/lib/monitor/watch');
 const { Thoughts } = require('../models');
 
 module.exports = {
@@ -73,16 +72,35 @@ module.exports = {
                 res.json({ message: "Thought has been updated" })
             )
             .catch((err) => res.status(500).json(err))
+    },
+
+    // DELETE to remove a thought by its _id
+    deleteThoughtById(req, res) {
+        Thoughts.findOneAndRemove({ _id: req.params.id })
+            .then((thought) =>
+                !thought ?
+                res.status(404).json({ message: "No user with that Id" }) :
+                res.json({ message: "Thought has been deleted" })
+                // :res.json(user)
+            )
+            .catch((err) => res.status(500).json(err))
+    },
+
+
+    // POST to create a reaction stored in a single thought's reactions array field
+    createReaction(req, res) {
+        console.log('You are creating a reaction');
+        console.log(req.body);
+        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $addToSet: { thoughts: req.params.reactionId } }, { runValidators: true, new: true })
+            .then((thought) =>
+                !thought ?
+                res
+                .status(404)
+                .json({ message: 'No thought found with that ID' }) :
+                res.json({ message: "You have added a new thought" })
+            )
+            .catch((err) => res.status(500).json(err));
     }
-
-
-
-
-
-
-
-
-
 
 
 
