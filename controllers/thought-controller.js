@@ -11,7 +11,6 @@ module.exports = {
     //         });
     // },
 
-
     createThought({ params, body }, res) {
         console.log(params);
         console.log(body);
@@ -19,15 +18,50 @@ module.exports = {
         Thoughts.create(body)
             // find the id of the user and push a new thought into the user thoughts array
             .then(({ _id }) => {
+                console.log(`_id = ${_id}`)
                 return Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true });
             })
             .then((newThought) =>
+                console.log(`newThought = ${newThought}`) <<
                 !newThought ?
                 res.status(404).json({ message: "No thought with that ID" }) :
                 res.json(newThought)
             )
             .catch((err) => res.json(err));
     },
+
+
+
+
+    // createThought({ params, body }, res) {
+    //     console.log(params);
+    //     console.log(body);
+    //     // console log user id and the content of the thought json
+    //     Thoughts.create(body)
+    //         // find the id of the user and push a new thought into the user thoughts array
+    //         .then(({ _id }) => {
+    //             console.log(`_id = ${_id}`)
+    //             let doc = Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true }, );
+    //             console.log(`doc = ${doc}`)
+    //             return doc
+    //         })
+    //         .then((newThought) =>
+    //             console.log(`newThought = ${newThought}`) <<
+    //             !newThought ?
+    //             res.status(404).json({ message: "No thought with that ID" }) :
+    //             res.json(newThought)
+    //         )
+    //         .catch((err) => res.json(err));
+    // },
+
+
+
+
+
+
+
+
+
 
     // GET to get all thoughts
     getAllThoughts(req, res) {
@@ -80,21 +114,32 @@ module.exports = {
 
 
     // POST to create a reaction stored in a single thought's reactions array field
+    // createReaction(req, res) {
+    //     console.log('You are creating a reaction');
+    //     console.log(req.body, req.params.thoughtId);
+
+    //     Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { runValidators: true, new: true })
+    //         .then((thought) =>
+    //             !thought ?
+    //             res
+    //             .status(404)
+    //             .json({ message: 'No thought found with that ID' }) :
+    //             res.json({ message: "You have added a new thought" })
+    //         )
+    //         .catch((err) => res.status(500).json(err));
+
+    // }
+
+
     createReaction(req, res) {
-        console.log('You are creating a reaction');
-        console.log(req.body, req.params.thoughtId);
+        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { reactions: req.body }, { runValidators: true, new: true })
+            .then((thought) => res.json(thought))
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
+    },
 
-        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { runValidators: true, new: true })
-            .then((thought) =>
-                !thought ?
-                res
-                .status(404)
-                .json({ message: 'No thought found with that ID' }) :
-                res.json({ message: "You have added a new thought" })
-            )
-            .catch((err) => res.status(500).json(err));
-
-    }
 
 
 }

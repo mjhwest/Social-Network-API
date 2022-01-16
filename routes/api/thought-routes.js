@@ -22,19 +22,6 @@ router.route('/:id')
     .post(createThought);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // //api/thoughts/:thoughtId/reactions -----POST/create a reaction stored in single thoughts reactions array field 
 router.route('/api/thoughts/:thoughtId/reactions')
     .post(createReaction);
