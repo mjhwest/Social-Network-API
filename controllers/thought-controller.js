@@ -1,32 +1,32 @@
-const { Thoughts, Users } = require('../models');
+const { Thoughts, User } = require('../models');
 
 module.exports = {
     //create a thought
-    createThought(req, res) {
-        Thoughts.create(req.body)
-            .then((thought) => res.json(thought))
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
-    },
-
-    // createThought({ params, body }, res) {
-    //     console.log(params);
-    //     console.log(body);
-    //     // console log user id and the content of the thought json
-    //     Thoughts.create(body)
-    //         // find the id of the user and push a new thought into the user thoughts array
-    //         .then(({ _id }) => {
-    //             return Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true });
-    //         })
-    //         .then((newThought) =>
-    //             !newThought ?
-    //             res.status(404).json({ message: "No thought with that ID" }) :
-    //             res.json(newThought)
-    //         )
-    //         .catch((err) => res.json(err));
+    // createThought(req, res) {
+    //     Thoughts.create(req.body)
+    //         .then((thought) => res.json(thought))
+    //         .catch((err) => {
+    //             console.log(err);
+    //             return res.status(500).json(err);
+    //         });
     // },
+
+    createThought({ params, body }, res) {
+        console.log(params);
+        console.log(body);
+        // console log user id and the content of the thought json
+        Thoughts.create(body)
+            // find the id of the user and push a new thought into the user thoughts array
+            .then(({ _id }) => {
+                return User.findByIdAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true });
+            })
+            .then((newThought) =>
+                !newThought ?
+                res.status(404).json({ message: "No thought with that ID" }) :
+                res.json(newThought)
+            )
+            .catch((err) => res.json(err));
+    },
 
     // GET to get all thoughts
     getAllThoughts(req, res) {
