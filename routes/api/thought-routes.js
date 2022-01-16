@@ -10,7 +10,7 @@ const {
 
 // //api/thoughts/:userId ---------POST new thought and GET all thoughts
 router.route('/')
-    .post(createThought)
+    // .post(createThought)
     .get(getAllThoughts);
 
 
@@ -19,7 +19,20 @@ router.route('/:id')
     .get(getThoughtById)
     .put(updateThoughtById)
     .delete(deleteThoughtById)
-    // .post(createThought);
+    .post(createThought);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // //api/thoughts/:thoughtId/reactions -----POST/create a reaction stored in single thoughts reactions array field 
