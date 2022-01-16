@@ -18,19 +18,15 @@ module.exports = {
         Thoughts.create(body)
             // find the id of the user and push a new thought into the user thoughts array
             .then(({ _id }) => {
-                console.log(`_id = ${_id}`)
                 return Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true });
             })
             .then((newThought) =>
-                console.log(`newThought = ${newThought}`) <<
                 !newThought ?
                 res.status(404).json({ message: "No thought with that ID" }) :
                 res.json(newThought)
             )
             .catch((err) => res.json(err));
     },
-
-
 
 
     // createThought({ params, body }, res) {
@@ -41,9 +37,7 @@ module.exports = {
     //         // find the id of the user and push a new thought into the user thoughts array
     //         .then(({ _id }) => {
     //             console.log(`_id = ${_id}`)
-    //             let doc = Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true }, );
-    //             console.log(`doc = ${doc}`)
-    //             return doc
+    //             return Users.findOneAndUpdate({ _id: params.id }, { $push: { thoughts: _id } }, { new: true });
     //         })
     //         .then((newThought) =>
     //             console.log(`newThought = ${newThought}`) <<
@@ -53,6 +47,7 @@ module.exports = {
     //         )
     //         .catch((err) => res.json(err));
     // },
+
 
 
     // GET to get all thoughts
