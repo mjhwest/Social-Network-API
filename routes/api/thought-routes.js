@@ -20,7 +20,7 @@ router.route('/:id')
     // .post(createThought);
 
 
-router.route('/api/thoughts/:thoughtId/reactions')
+router.route('/:thoughtId/reactions')
     .post(createReaction);
 
 // //api/thoughts/:thoughtId/reactionId -------------DELETE to pull and remove a reaction by the reaction's reactionId value

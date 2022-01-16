@@ -77,8 +77,8 @@ module.exports = {
 
     // POST to create a reaction stored in a single thought's reactions array field
     createReaction(req, res) {
-        // console.log('You are creating a reaction');
-        // console.log(req.body, req.params.thoughtId);
+        console.log('You are creating a reaction');
+        console.log(req.body, req.params.thoughtId);
 
         Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { runValidators: true, new: true })
             .then((thought) =>
@@ -91,16 +91,6 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
 
     }
-
-
-    // createReaction(req, res) {
-    //     Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { reactions: req.body }, { runValidators: true, new: true })
-    //         .then((thought) => res.json(thought))
-    //         .catch((err) => {
-    //             console.log(err);
-    //             return res.status(500).json(err);
-    //         });
-    // },
 
 
 
