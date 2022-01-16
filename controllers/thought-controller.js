@@ -83,14 +83,30 @@ module.exports = {
 
     },
 
+    // removeReaction(req, res) {
+    //     Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: req.params.reactionId } }, { runValidators: true, new: true })
+    //         .then((reaction) => res.json(reaction))
+    //         .catch((err) => {
+    //             console.log(err);
+    //             return res.status(500).json(err);
+    //         });
+
+
+    // }
+
     removeReaction(req, res) {
-        Thoughts.findOneAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: req.params.reactionId } }, { runValidators: true, new: true })
-            .then((reaction) => res.json(reaction))
-            .catch((err) => {
-                console.log(err);
-                return res.status(500).json(err);
-            });
+        Thoughts.findOneAndUpdate({ _id: req.params.id }, {
+                $pull: { reactions: { reactionsId: req.params.reactionsId } }
+            }, { runValidators: true, new: true })
+            .then((thought) =>
+                !thought ?
+                res
+                .status(404)
+                .json({ message: 'No reaction found with that ID' }) :
+                res.json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
 
 
-    }
 }
