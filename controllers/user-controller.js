@@ -31,7 +31,7 @@ module.exports = {
     updateUser(req, res) {
         User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { runValidators: true, new: true })
             .then((user) =>
-                !course ?
+                !user ?
                 res.status(404).json({ message: 'No course with this id!' }) :
                 res.json({ message: "User information has been updated" })
                 // :res.json(user)
