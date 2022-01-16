@@ -52,7 +52,6 @@ module.exports = {
     },
 
     //add a new friend by users id
-    // //  IN INSOMNIA .../api/users/:userId/friends/:friendId
 
     addNewFriend(req, res) {
         console.log('You are adding a friend');
