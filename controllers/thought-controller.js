@@ -55,14 +55,6 @@ module.exports = {
     // },
 
 
-
-
-
-
-
-
-
-
     // GET to get all thoughts
     getAllThoughts(req, res) {
         Thoughts.find()
@@ -72,10 +64,7 @@ module.exports = {
                 console.log(err);
                 res.status(500).json((err));
             })
-
-
     },
-
 
     // GET to get a single thought by its _id
     getThoughtById(req, res) {
