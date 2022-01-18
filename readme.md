@@ -99,4 +99,4 @@ This appplication has the following features used in it
 If you would like to contribute to this project please contact me via email at mjhwest89@gmail.com
 
 ## License
-This project is released under the [MIT LICENSE](ADD LICENSE LINK HERE)
+This project is released under the [MIT LICENSE](https://github.com/mjhwest/Social-Network-API/blob/main/LICENSE)
